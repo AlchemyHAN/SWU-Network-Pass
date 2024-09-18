@@ -68,6 +68,12 @@ func getAccount() Account {
 func main() {
 	logger.Info("Starting the application...")
 
+	// 判断accounts.txt是否存在
+	if _, err := os.Stat("accounts.txt"); os.IsNotExist(err) {
+		logger.Error("File accounts.txt not found, please create it and put your accounts in it")
+		os.Exit(1)
+	}
+
 	// heartbeat loop
 	for {
 		verificationUrl := url.URL{Scheme: "http", Host: "captive.apple.com"}
