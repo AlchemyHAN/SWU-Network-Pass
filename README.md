@@ -2,6 +2,9 @@
 
 **SWU-Network-Pass** is a robust automatic login client for Southwest University (Chongqing, China) campus network. Until 18th, September, 2024, Southwest University campus network uses RuiJie web-based authentication system. Designed to ensure continuous internet access without interruptions, this Go based tool automates network verification and re-login procedures. It's especially useful for managing network connectivity issues seamlessly with built-in network status checks and automatic reconnection.
 
+- [简体中文](README_zh.md)
+- [English](README.md)
+
 ## Features
 
 - **Automatic Network Detection and Recovery**: Ensures your device maintains uninterrupted network access by detecting disruptions and performing automatic logins.
