@@ -60,10 +60,22 @@ cd /path/to/binary
 
 This client is precompiled for a range of operating systems and architectures:
 
-- **Operating Systems**: Linux, Windows, macOS (Darwin)
-- **Architectures**: amd64, arm64, armv6, armv7, i386, ppc64, ppc64le, s390x, loongarch64, riscv64
+- **Operating Systems and Architectures:**
+  - Windows (x86_64, x86, arm64, armv7)
+  - Linux (x86_64, x86, arm64, armv7, armv6, mips64, ppc64, ppc64le, s390x, riscv64, loong64)
+  - macOS (Darwin) (x86_64, arm64 (Apple Silicon))
 
 Refer to the [Releases](https://github.com/AlchemyHAN/SWU-Network-Pass/releases) page for detailed information about each supported platform.
+
+## Building from Source
+
+**Prerequisites:**
+- Go 1.21 or later
+
+Follow these steps to build the client:
+1. Clone the repository: `git clone https://github.com/AlchemyHAN/SWU-Network-Pass.git`
+2. Change working directory: `cd SWU-Network-Pass`
+3. Build the client: `go build`
 
 ## Contributing
 
