@@ -24,6 +24,7 @@
 Download the latest release suitable for your system from the [Releases](https://github.com/AlchemyHAN/SWU-Network-Pass/releases) page.
 
 **Installation Steps:**
+
 1. Extract the downloaded file to a desired location.
 (For Unix-like systems, you can use the following command to extract the tarball: `tar -xzvf SWU-Network-Pass_Linux_arm64.tar.gz`)
 2. Ensure the binary is executable (you might need to change permissions on Unix-like systems).
@@ -31,26 +32,31 @@ Download the latest release suitable for your system from the [Releases](https:/
 ## Configuration
 
 **Accounts File Setup:**
+
 - Create a file named `accounts.txt` in the same directory as the executable.
 - Add your login credentials in the format: `username password`
 
 **Example:**
-```
+
+``` plaintext
 lilei abc123456@
 hanmeimei xyz789012#
 ```
 
 **Environment Variables:**
+
 - `SWU_NEED_ENCRYPTION`: Set to `true` (default) to enable password encryption or `false` to disable it.
 
 ## Usage
 
 Change working directory to the location of the binary before running the client, then execute the binary simply to start the client.
 The client will:
+
 - Monitor the network status continuously.
 - Automatically attempt to login using the credentials from `accounts.txt` when it detects network disruptions.
 
 **Running the Client:**
+
 ```bash
 cd /path/to/binary
 ./swu-network-pass
@@ -70,9 +76,11 @@ Refer to the [Releases](https://github.com/AlchemyHAN/SWU-Network-Pass/releases)
 ## Building from Source
 
 **Prerequisites:**
+
 - Go 1.21 or later
 
 Follow these steps to build the client:
+
 1. Clone the repository: `git clone https://github.com/AlchemyHAN/SWU-Network-Pass.git`
 2. Change working directory: `cd SWU-Network-Pass`
 3. Build the client: `go build`
@@ -80,6 +88,7 @@ Follow these steps to build the client:
 ## Contributing
 
 Contributions are welcome and greatly appreciated. To contribute:
+
 1. Fork the repository.
 2. Create your feature branch (`git checkout -b feature/myNewFeature`).
 3. Commit your changes (`git commit -am 'Add some great feature'`).
@@ -93,4 +102,3 @@ This project is licensed under the GPL-3.0 License. For more information, refer 
 ---
 
 **Disclaimer:** This software is intended for educational and research purposes in Southwest University only. The developer is not responsible for any misuse or damage caused by this tool. Use at your own risk.
-```

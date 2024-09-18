@@ -3,3 +3,4 @@ accounts.txt
 swu-network-pass
 dist/
 .goreleaser.yaml
+.idea/
