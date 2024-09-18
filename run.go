@@ -42,6 +42,12 @@ func init() {
 }
 
 func getAccount() Account {
+	// 判断accounts.txt是否存在
+	if _, err := os.Stat("accounts.txt"); os.IsNotExist(err) {
+		logger.Error("File accounts.txt not found, please create it and put your accounts in it")
+		os.Exit(1)
+	}
+
 	file, err := os.Open("accounts.txt")
 	if err != nil {
 		logger.Error("Error in opening file accounts.txt", "error", err)
@@ -52,7 +58,10 @@ func getAccount() Account {
 	scanner := bufio.NewScanner(file)
 	var accounts []string
 	for scanner.Scan() {
-		accounts = append(accounts, scanner.Text())
+		line := strings.TrimSpace(scanner.Text())
+		if line != "" {
+			accounts = append(accounts, line)
+		}
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -62,15 +71,20 @@ func getAccount() Account {
 
 	randomIndex := int(math.Round(rand.Float64() * float64(len(accounts)-1)))
 	account := strings.Fields(accounts[randomIndex])
+	if len(account) != 2 {
+		logger.Error("Invalid account format", "account", account)
+		os.Exit(1)
+	}
 	return Account{Username: account[0], Password: account[1]}
 }
 
 func main() {
 	logger.Info("Starting the application...")
 
-	// 判断accounts.txt是否存在
-	if _, err := os.Stat("accounts.txt"); os.IsNotExist(err) {
-		logger.Error("File accounts.txt not found, please create it and put your accounts in it")
+	// 判断格式是否正确
+	account := getAccount()
+	if account.Username == "" || account.Password == "" {
+		logger.Error("Invalid account format")
 		os.Exit(1)
 	}
 
