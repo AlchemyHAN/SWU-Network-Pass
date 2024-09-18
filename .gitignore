@@ -1,0 +1,5 @@
+accounts.txt
+.DS_Store
+swu-network-pass
+dist/
+.goreleaser.yaml
