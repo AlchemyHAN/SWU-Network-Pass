@@ -73,6 +73,10 @@ This client is precompiled for a range of operating systems and architectures:
   - Windows (x86_64, x86, arm64, armv7)
   - Linux (x86_64, x86, arm64, armv7, armv6, mips64, ppc64, ppc64le, s390x, riscv64, loong64)
   - macOS (Darwin) (x86_64, arm64 (Apple Silicon))
+  - FreeBSD (x86_64, x86, arm64, armv7, armv6)
+  - OpenBSD (x86_64, x86, arm64, armv7, armv6)
+  - NetBSD (x86_64, x86, arm64, armv7, armv6)
+  - Solaris (x86_64)
 
 Refer to the [Releases](https://github.com/AlchemyHAN/SWU-Network-Pass/releases) page for detailed information about each supported platform.
 
