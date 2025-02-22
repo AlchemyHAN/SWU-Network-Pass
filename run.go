@@ -90,7 +90,7 @@ func main() {
 
 	// heartbeat loop
 	for {
-		verificationUrl := url.URL{Scheme: "http", Host: "captive.apple.com"}
+		verificationUrl := url.URL{Scheme: "http", Host: "119.28.5.105"}
 		success, redirectHtmlString := verifyNetworkStatus(verificationUrl)
 		if !success && redirectHtmlString != "" {
 			redirectUrl := getRedirectUrl(redirectHtmlString)
