@@ -1,6 +1,6 @@
 # SWU-Network-Pass
 
-**SWU-Network-Pass** is a robust automatic login client for Southwest University (Chongqing, China) campus network. Until 18th, September, 2024, Southwest University campus network uses RuiJie web-based authentication system. Designed to ensure continuous internet access without interruptions, this Go based tool automates network verification and re-login procedures. It's especially useful for managing network connectivity issues seamlessly with built-in network status checks and automatic reconnection.
+**SWU-Network-Pass** is a robust automatic login client for Southwest University (Chongqing, China) campus network. Until 18th, September, 2024, Southwest University campus network uses RuiJie web-based authentication system. Designed to ensure continuous internet access without interruptions, this Go-based tool automates network verification and re-login procedures. It's especially useful for managing network connectivity issues seamlessly with built-in network status checks and automatic reconnection, now structured into focused packages for accounts, status probing, crypto, and login flows, and configurable entirely through command-line flags.
 
 - [简体中文](README_zh.md)
 - [English](README.md)
@@ -8,10 +8,13 @@
 ## Features
 
 - **Automatic Network Detection and Recovery**: Ensures your device maintains uninterrupted network access by detecting disruptions and performing automatic logins.
-- **Support for Encrypted Passwords**: Enhances security by encrypting passwords before transmission. Easy toggling of encryption based on environment settings.
+- **Support for Encrypted Passwords**: Enhances security by encrypting passwords before transmission. Enable or disable encryption with a simple CLI flag.
+- **Context-Aware Requests**: Uses timeouts and context cancellation to keep the CLI responsive in unstable network environments.
+- **Selectable ISP Enforcement**: Optionally target CMCC, CT, or CU; the client logs out and retries if the detected uplink carrier does not match.
+- **Flexible CLI Configuration**: Adjust accounts path, encryption, and ISP selection on demand without editing configuration files.
 - **Cross-Platform Compatibility**: Runs efficiently across a variety of operating systems and architectures.
 - **Lightweight and Efficient**: Optimized for minimal resource consumption, perfect for devices with limited hardware capabilities.
-- **User-Friendly Configuration**: Simple setup with a straightforward accounts file and environment variables for customization.
+- **User-Friendly Configuration**: Simple setup with a straightforward accounts file and self-explanatory command-line flags.
 
 ## Table of Contents
 
@@ -46,14 +49,18 @@ lilei abc123456@
 hanmeimei xyz789012#
 ```
 
-**Environment Variables:**
+**Command-Line Flags:**
 
-- `SWU_NEED_ENCRYPTION`: Set to `true` (default) to enable password encryption or `false` to disable it.
+- `--accounts` (default `accounts.txt`): Custom path to the credentials file.
+- `--encryption`: Enable password encryption when the portal requires RSA-encrypted submissions. Omit the flag to keep plaintext logins.
+- `--isp` (`CMCC`, `CT`, `CU`): Enforce login to a specific carrier. When set, the client validates the public IP after login and forces a logout if the detected ISP does not match, allowing the next iteration to retry.
+- `--help`: Display the full list of supported flags.
+
+> ISP codes are case-sensitive; use uppercase values.
 
 ## Usage
 
-Change working directory to the location of the binary before running the client, then execute the binary simply to start the client.
-The client will:
+Change working directory to the location of the binary before running the client, then execute the binary with any desired flags. The client will:
 
 - Monitor the network status continuously.
 - Automatically attempt to login using the credentials from `accounts.txt` when it detects network disruptions.
@@ -62,7 +69,15 @@ The client will:
 
 ```bash
 cd /path/to/binary
-./swu-network-pass
+./swu-network-pass --encryption --isp=CMCC
+```
+
+The example above enables password encryption and asks the client to keep retrying until it authenticates through China Mobile (CMCC). Omit `--isp` to accept whichever carrier the portal assigns.
+
+When running directly from source (useful during development or when you prefer not to download the release binary), you can execute:
+
+```bash
+go run ./cmd/online-check --accounts ./accounts.txt --encryption --isp=CMCC
 ```
 
 ## Supported Platforms
@@ -84,13 +99,13 @@ Refer to the [Releases](https://github.com/AlchemyHAN/SWU-Network-Pass/releases)
 
 **Prerequisites:**
 
-- Go 1.21 or later
+- Go 1.23 or later
 
 Follow these steps to build the client:
 
 1. Clone the repository: `git clone https://github.com/AlchemyHAN/SWU-Network-Pass.git`
 2. Change working directory: `cd SWU-Network-Pass`
-3. Build the client: `go build`
+3. Build the client: `go build -o swu-network-pass ./cmd/online-check`
 
 ## Contributing
 
