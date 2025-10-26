@@ -85,7 +85,9 @@ func runIteration(logger *slog.Logger, httpClient *http.Client, verificationURL 
 		}
 		if !isRightISP {
 			logger.Warn("Connected to wrong ISP network", "expected_isp", selectedISP)
-			auth.Logout(checkCtx, httpClient)
+			if err := auth.Logout(checkCtx, httpClient); err != nil {
+				return fmt.Errorf("logout error: %w", err)
+			}
 			logger.Info("Logged out due to ISP mismatch; will attempt re-login in next iteration")
 		}
 	}

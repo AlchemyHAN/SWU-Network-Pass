@@ -6,6 +6,7 @@ import (
 	"io"
 	"net"
 	"net/http"
+	"regexp"
 )
 
 const (
@@ -48,7 +49,13 @@ func GetIP(ctx context.Context, client *http.Client, ipServiceURL string) (strin
 		return "", err
 	}
 
-	return string(bodyBytes), nil
+	pattern := regexp.MustCompile(`\b((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b`)
+
+	matches := pattern.Find(bodyBytes)
+	if matches == nil {
+		return "", fmt.Errorf("no valid IP address found in response")
+	}
+	return string(matches), nil
 }
 
 func IsIPInCIDR(ip string, cidr string) (bool, error) {
